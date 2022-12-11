@@ -1,0 +1,2 @@
+#define SLIVERPORTBENDER_API __declspec(dllexport)
+#define SLIVERPORTBENDER_API __declspec(dllimport)
