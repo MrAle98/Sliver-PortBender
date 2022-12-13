@@ -2,7 +2,11 @@
 #include "pch.h"
 
 #include <Windows.h>
+#include "Sliver-PortBender.h"
+
+#pragma warning(disable : 4996)
 extern "C" {
+
     HINSTANCE hInst = nullptr;
     BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     {
@@ -10,8 +14,9 @@ extern "C" {
         switch (fdwReason)
         {
         case DLL_PROCESS_ATTACH:
+        {
             break;
-
+        }
         case DLL_PROCESS_DETACH:
             break;
 
