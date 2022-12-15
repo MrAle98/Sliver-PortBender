@@ -40,6 +40,9 @@ Arguments::Arguments(std::string argument_string) {
 		this->Action = args[0];
 		this->id = std::stoi(args[1]);
 	}
+	else if (args[0] == "list") {
+		this->Action = args[0];
+	}
 	else {
 		throw std::invalid_argument("Please enter a valid action of redirect or backdoor");
 	}

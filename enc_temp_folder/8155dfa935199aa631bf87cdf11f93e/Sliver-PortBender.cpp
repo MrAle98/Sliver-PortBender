@@ -122,6 +122,7 @@ int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
     if (manager == nullptr) {
         manager = std::make_unique<PortBenderManager>();
     }
+    
     try {
         Arguments args = Arguments(argsBuffer);
 

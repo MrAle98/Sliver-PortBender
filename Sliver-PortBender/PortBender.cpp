@@ -26,6 +26,11 @@ PortBender::PortBender(UINT16 FakeDstPort, UINT16 RedirectPort, std::string Pass
 	this->Password = Password;
 }
 
+
+std::tuple<UINT16, UINT16, OperatingMode, std::string> PortBender::getData() {
+	return std::make_tuple(this->FakeDstPort, this->RedirectPort, this->Mode, this->Password);
+}
+
 UINT16 PortBender::getFakeDstPort() {
 	return this->FakeDstPort;
 }

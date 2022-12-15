@@ -30,9 +30,9 @@
 class PortBenderData
 {
 public:
-	PortBenderData();
-private:
 
+private:
+	
 };
 
 class PortBenderWrapper
@@ -43,7 +43,8 @@ public:
 	PortBenderWrapper(const PortBenderWrapper&);
 	void start();
 	void stop();
-	std::pair<UINT16,UINT16> getData();
+	std::tuple<UINT16, UINT16, OperatingMode, std::string> getData();
+
 private:
 	std::unique_ptr<std::thread> thread_ptr;
 	PortBender portbender;
@@ -54,9 +55,10 @@ class PortBenderManager
 public:
 	std::tuple<int,bool> add(PortBender);
 	bool remove(int);
-	std::pair<UINT16, UINT16> getData(int);
+	//std::pair<UINT16, UINT16> getData(int);
 	bool start(int);
 	bool stop(int);
+	std::vector<std::tuple<int,UINT16,UINT16,OperatingMode,std::string>> list();
 private:
 	std::map<int, std::shared_ptr<PortBenderWrapper>> manager;
 	int max;

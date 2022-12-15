@@ -12,7 +12,13 @@
 #include "Utilities.h"
 #include "WinDivert.h"
 
+enum class OperatingMode {
+	REDIRECTOR,
+	BACKDOOR
+};
+
 class PortBender {
+
 public:
 	PortBender(UINT16 FakeDstPort, UINT16 RedirectPort);
 	PortBender(const PortBender&);
@@ -21,12 +27,8 @@ public:
 	void Stop();
 	UINT16 getFakeDstPort();
 	UINT16 getRedirectPort();
+	std::tuple<UINT16,UINT16, OperatingMode,std::string> getData();
 private:
-
-	enum class OperatingMode {
-		REDIRECTOR,
-		BACKDOOR
-	};
 	std::mutex mut;
 	bool stop;
 	UINT16 FakeDstPort;
