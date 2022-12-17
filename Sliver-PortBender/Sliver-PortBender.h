@@ -1,8 +1,6 @@
 #pragma once
 #include "pch.h"
-#include <thread>
-#include <mutex>
-#include "PortBender.h"
+#include "PortBenderManager.h"
 // Il blocco ifdef seguente viene in genere usato per creare macro che semplificano
 // l'esportazione da una DLL. Tutti i file all'interno della DLL sono compilati con il simbolo SLIVERPORTBENDER_EXPORTS
 // definito nella riga di comando. Questo simbolo non deve essere definito in alcun progetto
@@ -27,49 +25,12 @@
 //SLIVERPORTBENDER_API int fnSliverPortBender(void);
 
 
-class PortBenderData
-{
-public:
-
-private:
-	
-};
-
-class PortBenderWrapper
-{
-public:
-	PortBenderWrapper(PortBender);
-	~PortBenderWrapper();
-	PortBenderWrapper(const PortBenderWrapper&);
-	void start();
-	void stop();
-	std::tuple<UINT16, UINT16, OperatingMode, std::string> getData();
-
-private:
-	std::unique_ptr<std::thread> thread_ptr;
-	PortBender portbender;
-};
-
-class PortBenderManager
-{
-public:
-	std::tuple<int,bool> add(PortBender);
-	bool remove(int);
-	//std::pair<UINT16, UINT16> getData(int);
-	bool start(int);
-	bool stop(int);
-	std::vector<std::tuple<int,UINT16,UINT16,OperatingMode,std::string>> list();
-private:
-	std::map<int, std::shared_ptr<PortBenderWrapper>> manager;
-	int max;
-};
-
 
 typedef int (*goCallback)(const char*, int);
 
 extern "C" {
 	__declspec(dllexport) int __cdecl entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback);
-	__declspec(dllexport) int __cdecl fakeEntryPoint();
+	//__declspec(dllexport) int __cdecl fakeEntryPoint();
 
 }
 

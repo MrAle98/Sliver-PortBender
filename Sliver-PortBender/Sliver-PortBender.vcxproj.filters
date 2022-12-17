@@ -51,6 +51,12 @@
     <ClInclude Include="libwindivert.h">
       <Filter>File di intestazione\deps</Filter>
     </ClInclude>
+    <ClInclude Include="PortBenderManager.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="PortBenderWrapper.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sliver-PortBender.cpp">
@@ -78,6 +84,12 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="PortBender.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="PortBenderManager.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="PortBenderWrapper.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

@@ -173,6 +173,8 @@
     <ClInclude Include="Packet.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PortBender.h" />
+    <ClInclude Include="PortBenderManager.h" />
+    <ClInclude Include="PortBenderWrapper.h" />
     <ClInclude Include="Sliver-PortBender.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="WinDivert.h" />
@@ -189,6 +191,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PortBender.cpp" />
+    <ClCompile Include="PortBenderManager.cpp" />
+    <ClCompile Include="PortBenderWrapper.cpp" />
     <ClCompile Include="Sliver-PortBender.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="WinDivert.cpp" />
