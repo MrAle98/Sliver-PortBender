@@ -8,4 +8,5 @@ public:
 	short RedirectPort;
 	std::string Password;
 	int id;
+	bool invalid;
 };

@@ -52,16 +52,16 @@ void PortBender::Start()
 	//
 	// Create a filter rule to intercept traffic
 	//
-
+	//  and ip.DstAddr == 192.168.161.30 
 	sprintf_s(filter,
 		sizeof(filter),
-		"((inbound and tcp.DstPort == %d )" " or (outbound and tcp.SrcPort == %d ))",
+		"((inbound and tcp.DstPort == %d)" " or (outbound and tcp.SrcPort == %d ))",
 		this->FakeDstPort,
 		this->RedirectPort);
 	
 	try
 	{
-		WinDivert* driver = new WinDivert(filter);
+		std::unique_ptr<WinDivert> driver = std::make_unique<WinDivert>(filter);
 		ConnectionManager* connections = new ConnectionManager();
 
 		printf("Configuring redirection of connections targeting %d/TCP to %d/TCP\n",

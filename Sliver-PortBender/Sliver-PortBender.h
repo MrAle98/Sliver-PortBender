@@ -30,7 +30,7 @@ typedef int (*goCallback)(const char*, int);
 
 extern "C" {
 	__declspec(dllexport) int __cdecl entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback);
-	//__declspec(dllexport) int __cdecl fakeEntryPoint();
+	__declspec(dllexport) int __cdecl fakeEntryPoint();
 
 }
 

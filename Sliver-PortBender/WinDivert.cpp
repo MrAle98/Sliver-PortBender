@@ -32,6 +32,10 @@ WinDivert::WinDivert(char* filter) {
 	}
 }
 
+WinDivert::~WinDivert() {
+	CloseHandle(this->handle);
+	this->handle = NULL;
+}
 
 Packet* WinDivert::TryReceive(int seconds) {
 	Packet* packet = new Packet();

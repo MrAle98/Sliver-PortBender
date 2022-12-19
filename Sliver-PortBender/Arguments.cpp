@@ -18,7 +18,8 @@ Arguments::Arguments(std::string argument_string) {
 	if (args[0] == "redirect") {
 
 		if (args.size() != 3) {
-			throw std::invalid_argument("Missing required arguments");
+			// std::invalid_argument("Missing required arguments");
+			this->invalid = true;
 		}
 
 		this->Action = args[0];
@@ -28,7 +29,9 @@ Arguments::Arguments(std::string argument_string) {
 	else if (args[0] == "backdoor") {
 
 		if (args.size() != 4) {
-			throw std::invalid_argument("Missing required arguments");
+			// std::invalid_argument("Missing required arguments");
+			this->invalid = true;
+			return;
 		}
 
 		this->Action = args[0];
@@ -44,6 +47,7 @@ Arguments::Arguments(std::string argument_string) {
 		this->Action = args[0];
 	}
 	else {
-		throw std::invalid_argument("Please enter a valid action of redirect or backdoor");
+		// std::invalid_argument("Please enter a valid action of redirect or backdoor");
+		this->invalid = true;
 	}
 }

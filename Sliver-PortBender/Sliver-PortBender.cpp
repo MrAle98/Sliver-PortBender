@@ -37,15 +37,11 @@ int fakeEntryPoint() {
     entrypoint(buff, strlen(buff), func);
     strcpy(buff, "list");
     entrypoint(buff, strlen(buff), func);
-    strcpy(buff, "redirect 445 8445");
+    strcpy(buff, "redirect 135 9001");
     entrypoint(buff, strlen(buff), func);
-    strcpy(buff, "list");
-    entrypoint(buff, strlen(buff), func);
-    Sleep(1000 * 120);
-    strcpy(buff, "remove 0");
-    entrypoint(buff, strlen(buff), func);
-    strcpy(buff, "list");
-    entrypoint(buff, strlen(buff), func);
+    while (1) {
+        Sleep(100 * 1000);
+    }
     return 0;
 }
 
@@ -72,7 +68,16 @@ int entrypoint(char* argsBuffer, uint32_t bufferSize, goCallback callback)
     }
     try {
         Arguments args = Arguments(argsBuffer);
-
+        if (args.invalid == true) {
+            msg.append("Redirect Usage : portbender redirect FakeDstPort RedirectedPort\n");
+            msg.append("Example:\n");
+            msg.append("\tportbender redirect 445 8445\n");
+            msg.append("\tportbender backdoor 443 3389 praetorian.antihacker\n");
+            msg.append("List Usage : PortBender list\n");
+            msg.append("Remove Usage: portbender remove <id> \n");
+            callback(msg.c_str(), msg.length());
+            return 0;
+        }
         if (args.Action == "remove") {
             if (manager->stop(args.id) && manager->remove(args.id)) {
                 sprintf(buffer, "successfully removed redirection with Id% d\n", args.id);
