@@ -159,7 +159,8 @@ sliver (RIPE_COUNCILOR) >
 
 ```
 
-Notice now the previous command used to generate traffic executes successfully:
+Notice now the previous command used to generate traffic executes successfully, confirming the PortBender rule was removed successfully:
+
 ![immagine](https://user-images.githubusercontent.com/74059030/208510154-ffb4c5b6-d9cb-4e0a-8de3-e6cea1a114e8.png)
 
 
