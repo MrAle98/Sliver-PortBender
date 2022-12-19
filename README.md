@@ -170,4 +170,5 @@ Notice now the previous command used to generate traffic executes successfully:
 - https://rastamouse.me/ntlm-relaying-via-cobalt-strike/
 - https://github.com/trustedsec/SliverKeylogger
 
-Special thanks goes to [@rkervella](https://github.com/rkervella) [@moloch--](https://github.com/moloch--) and the other members of Bishop Fox for their job on Sliver. I thank also [@freefirex](https://github.com/freefirex) for his work on Sliver Keylogger, in fact I was insipired by his work when creating the extension.
+## Acknowledgements
+Special thanks goes to [@rkervella](https://github.com/rkervella) [@moloch--](https://github.com/moloch--) and the other members of Bishop Fox for their job on Sliver, and to [@praetorian-inc](https://github.com/praetorian-inc) for the original PortBender project. I thank also [@freefirex](https://github.com/freefirex) for his work on Sliver Keylogger. In fact I was insipired by his work when creating the extension.
