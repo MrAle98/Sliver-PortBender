@@ -1,9 +1,9 @@
 # Sliver-PortBender
 
-An **extension to Sliver C2**, written as a **learning excercise**, that allows to **manage multiple redirections of traffic, from port to port, inside the same implant**. 
+An **extension to Sliver C2**, that allows to **manage multiple redirection traffic rules, from port to port, inside the same implant**. 
 It maybe useful for performing **NTLM relaying in Sliver** in a similar way to what is described here https://rastamouse.me/ntlm-relaying-via-cobalt-strike/ for Cobalt-Strike. I recommend the user to first read the article before in case doesn't have any experience with PortBender.
 **The extension is a DLL wrapping the PortBender Reflective DLL** developed by praetorian-inc here: https://github.com/praetorian-inc/PortBender. Sliver-PortBender performs the same redirection task, 
-performed by the original PortBender, but does everything **inside the same implant with no need to inject into other binaries**.
+performed by the original PortBender, but does everything **inside the same implant with no need to inject into other binaries or drop binaries to disk**.
 
 ## How it works
 
@@ -32,6 +32,8 @@ Install and load the extension in sliver-client:
 ```
 
 ## Usage
+
+Be careful to use it only with **session** type implants. **beacons** in sliver have the issue of reloading everytime the DLL instead of loading only the first time is executed. I'll perform a PR that fix that behaviour soon.
 
 By running `portbender` you can already get a help message. Here the functionalities:
 
@@ -176,3 +178,8 @@ C:\Users\Administrator>dir \\192.168.161.30\c$
 C:\Users\Administrator>
 ```
 
+## Credits
+
+- https://github.com/BishopFox/sliver/wiki/Aliases-&-Extensions#extensions
+- https://github.com/praetorian-inc/PortBender
+- https://rastamouse.me/ntlm-relaying-via-cobalt-strike/
