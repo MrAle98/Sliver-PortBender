@@ -33,7 +33,7 @@ Install and load the extension in sliver-client:
 
 ## Usage
 
-Be careful to use it only with **session** type implants. **beacons** in sliver have the issue of reloading everytime the DLL instead of loading only the first time is executed. I'll perform a PR that fix that behaviour soon.
+Be careful to use it only with **session** type implants. **beacons** in sliver have the issue of reloading everytime the DLL, instead of loading it only the first time it gets executed. I'll perform a PR that fix that behaviour soon.
 
 By running `portbender` you can already get a help message. Here the functionalities:
 
@@ -158,28 +158,13 @@ sliver (RIPE_COUNCILOR) >
 ```
 
 Notice now the previous command used to generate traffic executes successfully:
-```
-C:\Users\Administrator>dir \\192.168.161.30\c$
- Volume in drive \\192.168.161.30\c$ has no label.
- Volume Serial Number is 9E5A-B257
+![immagine](https://user-images.githubusercontent.com/74059030/208510154-ffb4c5b6-d9cb-4e0a-8de3-e6cea1a114e8.png)
 
- Directory of \\192.168.161.30\c$
-
-12/07/2019  10:14 AM    <DIR>          PerfLogs
-12/17/2022  10:43 AM    <DIR>          Program Files
-11/20/2022  12:58 PM    <DIR>          Program Files (x86)
-11/05/2022  12:26 PM    <DIR>          tmp
-12/18/2022  11:34 AM    <DIR>          Users
-12/18/2022  12:43 AM    <DIR>          Windows
-02/21/2022  07:34 PM    <DIR>          Windows10Upgrade
-               0 File(s)              0 bytes
-               7 Dir(s)   5,434,863,616 bytes free
-
-C:\Users\Administrator>
-```
 
 ## Credits
 
 - https://github.com/BishopFox/sliver/wiki/Aliases-&-Extensions#extensions
 - https://github.com/praetorian-inc/PortBender
 - https://rastamouse.me/ntlm-relaying-via-cobalt-strike/
+
+Special thanks goes to [@rkervella](https://github.com/rkervella) [@moloch--](https://github.com/moloch--) and the other members of Bishop Fox for their job on Sliver.  
