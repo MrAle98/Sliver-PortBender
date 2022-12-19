@@ -31,6 +31,8 @@ Install and load the extension in sliver-client:
 > extension load /path/to/sliver-extension
 ```
 
+Alternatively you can download the release and use again the `extension install` and `extension load` commands with the folder extracted from the zip in the release. Only x64 version is in the release.
+
 ## Usage
 
 Be careful to use it only with **session** type implants. **beacons** in sliver have the issue of reloading everytime the DLL, instead of loading it only the first time it gets executed. I'll perform a PR that fix that behaviour soon.
