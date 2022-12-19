@@ -1,0 +1,17 @@
+{
+    "name": "portbender",
+    "version": "0.0.1",
+    "command_name": "portbender",
+    "extension_author": "TrustedSec",
+    "original_author": "TrustedSec",
+    "repo_url": "N/A",
+    "help": "portBender manager",
+    "entrypoint": "entrypoint",
+    "files": [
+    {
+    "os": "windows",
+    "arch": "amd64",
+    "path": "SliverPortBender.dll"
+    }
+    ]
+    }
