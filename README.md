@@ -168,5 +168,6 @@ Notice now the previous command used to generate traffic executes successfully:
 - https://github.com/BishopFox/sliver/wiki/Aliases-&-Extensions#extensions
 - https://github.com/praetorian-inc/PortBender
 - https://rastamouse.me/ntlm-relaying-via-cobalt-strike/
+- https://github.com/trustedsec/SliverKeylogger
 
-Special thanks goes to [@rkervella](https://github.com/rkervella) [@moloch--](https://github.com/moloch--) and the other members of Bishop Fox for their job on Sliver.  
+Special thanks goes to [@rkervella](https://github.com/rkervella) [@moloch--](https://github.com/moloch--) and the other members of Bishop Fox for their job on Sliver. I thank also [@freefirex](https://github.com/freefirex) for his work on Sliver Keylogger, a great reference for building a DLL extension for Sliver.  
