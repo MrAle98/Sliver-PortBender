@@ -3,7 +3,7 @@
 An **extension to Sliver C2**, that allows to **manage multiple redirection traffic rules, from port to port, inside the same implant**. 
 It maybe useful for performing **NTLM relaying from Sliver C2 into an internal network** in a similar way to what is described here https://rastamouse.me/ntlm-relaying-via-cobalt-strike/ for Cobalt-Strike. I recommend the user to first read the article before in case doesn't have any experience with PortBender.
 **The extension is a DLL wrapping the PortBender Reflective DLL** developed by praetorian-inc here: https://github.com/praetorian-inc/PortBender. Sliver-PortBender performs the same redirection task, 
-performed by the original PortBender, but does everything **inside the same implant with no need to inject into other binaries or drop binaries to disk**.
+performed by the original PortBender, but does everything **inside the same implant with no need to inject into other processes or drop binaries to disk**.
 
 ## How it works
 
