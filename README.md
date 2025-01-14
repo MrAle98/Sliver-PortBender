@@ -46,7 +46,7 @@ By running `portbender` you can already get a help message. Here the functionali
 ### Example
 
 Here how to use Sliver-Portbender in sliver in order to redirect traffic from port 445 to port 8445 and then relay incoming traffic with ntlmrelayx in the internal network.
-Be careful It is first necessary to upload `WinDivert64.sys` in the pivot machine to the path `C:\Windows\System32\drivers`. Later it is necessary to change directory to `C:\Windows\System32\drivers`.
+Be careful It is first necessary to upload `WinDivert64.sys` (available here: https://github.com/praetorian-inc/PortBender/tree/main/static)  in the pivot machine to the path `C:\Windows\System32\drivers`. Later it is necessary to change directory to `C:\Windows\System32\drivers`.
 
 Starting ntlmrelayx:
 ```
